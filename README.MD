@@ -1,7 +1,7 @@
-# Secure OTA Firmware Update and Code Signing Infrastructure
+# Secure OTA Firmware Update and Code Signing Infrastructure 
+  ##Project Overview
 
-## Project Overview
-This project aims to provide secure firmware updates for IoT devices using digital signatures and code signing.
+This project ensures secure firmware delivery to IoT devices by using digital signatures. Firmware is signed using a private key and verified using a public key before installation.
 
 ## Objectives
 - Ensure firmware authenticity.
