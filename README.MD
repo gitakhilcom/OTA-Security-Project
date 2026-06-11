@@ -14,6 +14,12 @@ This project ensures secure firmware delivery to IoT devices by using digital si
 - Member 3 – Update Server Development
 - Member 4 – Verification & GitHub Management
 
+## Repository Structure
+
+signing/      - Firmware signing module
+verification/ - Signature verification module
+tests/        - Testing files
+
 ## Technologies
 - Python
 - GitHub
