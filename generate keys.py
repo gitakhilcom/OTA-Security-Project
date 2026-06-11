@@ -1,4 +1,5 @@
- from cryptography.hazmat.primitives.asymmetric import rsa
+
+from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 
 # Generate RSA 2048-bit private key
@@ -7,13 +8,6 @@ private_key = rsa.generate_private_key(
     key_size=2048,
 )
 
-# Save private key locally (never commit this)
-with open("private_key.pem", "wb") as f:
-    f.write(private_key.private_bytes(
-        encoding=serialization.Encoding.PEM,
-        format=serialization.PrivateFormat.TraditionalOpenSSL,
-        encryption_algorithm=serialization.NoEncryption()
-    ))
 # Save private key locally (never commit this)
 with open("private_key.pem", "wb") as f:
     f.write(private_key.private_bytes(
