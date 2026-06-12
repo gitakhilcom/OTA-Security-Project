@@ -15,3 +15,7 @@ This branch contains the firmware creation and hashing activities assigned to Me
 * firmware.bin
 * firmware_hash.txt
 * hash_documentation.md
+
+## Status
+
+Firmware creation, SHA-256 hash generation, and documentation activities have been completed.
