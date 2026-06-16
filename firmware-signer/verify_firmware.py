@@ -1,7 +1,24 @@
-import argparse
+"""
+Edge Device Verification Agent - Signature Verification Script
+Part of: OTA Firmware Update Security Pipeline
+Member 4 - Deployment & Verification
+
+This script simulates the edge device's verification process:
+1. Calculates SHA-256 hash of the firmware binary
+2. Verifies the digital signature using the stored public key
+3. Returns PASS/FAIL based on integrity and authenticity checks
+
+NOTE: This script currently uses RSA-PSS padding for signature
+verification. Padding scheme to be confirmed with Member 1's
+signing implementation (Week 1 signing script) — update the
+padding.PSS(...) block below to padding.PKCS1v15() if the
+signing pipeline uses PKCS#1 v1.5 instead.
+"""
+import sys
 import hashlib
 from pathlib import Path
 
+from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 
@@ -21,12 +38,16 @@ def load_public_key(key_path):
         return serialization.load_pem_public_key(f.read())
 
 
-def verify_signature(public_key, firmware_path, signature_path):
-    digest = compute_sha256(firmware_path)
-
-    signature = Path(signature_path).read_bytes()
-
+def verify_signature(firmware_path, signature_path, public_key_path):
     try:
+        digest = compute_sha256(firmware_path)
+
+        print(f"[INFO] Firmware SHA-256: {digest.hex()}")
+
+        signature = Path(signature_path).read_bytes()
+
+        public_key = load_public_key(public_key_path)
+
         public_key.verify(
             signature,
             digest,
@@ -37,41 +58,52 @@ def verify_signature(public_key, firmware_path, signature_path):
             hashes.SHA256()
         )
 
-        print("Signature valid: True")
+        print("[SUCCESS] Signature verification PASSED.")
+        print("[SUCCESS] Firmware integrity confirmed.")
+        return True
 
-    except Exception:
-        print("Signature valid: False")
+    except InvalidSignature:
+        print("[FAILED] Invalid signature.")
+        return False
+
+    except FileNotFoundError as e:
+        print(f"[ERROR] File not found: {e}")
+        return False
+
+    except Exception as e:
+        print(f"[ERROR] {e}")
+        return False
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Verify firmware signature"
-    )
 
-    parser.add_argument(
-        "--public-key",
-        required=True,
-        help="Path to RSA public key"
-    )
+    if len(sys.argv) != 4:
+        print(
+            "Usage: python verify_firmware.py "
+            "<firmware.bin> <firmware.sig> <public.pem>"
+        )
+        sys.exit(1)
 
-    parser.add_argument(
-        "--firmware",
-        required=True,
-        help="Path to firmware file"
-    )
+    firmware_file = sys.argv[1]
+    signature_file = sys.argv[2]
+    public_key_file = sys.argv[3]
 
-    parser.add_argument(
-        "--signature",
-        required=True,
-        help="Path to signature file"
-    )
+    if not Path(firmware_file).is_file():
+        sys.exit(f"[-] Firmware not found: {firmware_file}")
 
-    args = parser.parse_args()
+    if not Path(signature_file).is_file():
+        sys.exit(f"[-] Signature not found: {signature_file}")
 
-    public_key = load_public_key(args.public_key)
+    if not Path(public_key_file).is_file():
+        sys.exit(f"[-] Public key not found: {public_key_file}")
 
-    verify_signature(
-        public_key,
-        args.firmware,
-        args.signature
-    )
+    if verify_signature(
+        firmware_file,
+        signature_file,
+        public_key_file
+    ):
+        print("\n[STATUS] Installation approved.")
+        sys.exit(0)
+
+    print("\n[STATUS] Installation blocked.")
+    sys.exit(1)
