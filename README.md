@@ -1,4 +1,5 @@
 # OTA-Security-Project
+<<<<<<< HEAD
 # PKI & Key Generation – OTA Security Project
 
 ## Overview
@@ -25,3 +26,5 @@ python generate_keys.py
 - RSA 2048-bit key pair generation
 - Secure key storage
 - PKI documentation
+=======
+>>>>>>> origin/ci-cd-pipeline
