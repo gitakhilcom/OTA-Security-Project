@@ -1,0 +1,28 @@
+name: CI - Sign + Verify Firmware
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+          
+      - name: Run unit tests
+        run: pytest test_signer.py -v
+          
+      - name: Test signing
+        run: python sign_firmware.py --key private.pem --firmware firmware.bin 
+          
+      - name: Test verification
+
+        run: python verify_firmware.py --public-key public.pem --firmware firmware.bin --signature dist/firmware.sig
+
+        run: python verify_firmware.py --public-key public.pem --input firmware.bin --signature dist/firmware.sig
