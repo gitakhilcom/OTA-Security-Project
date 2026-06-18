@@ -26,3 +26,10 @@ yaml
     PRIVATE_KEY: ${{ secrets.FIRMWARE_PRIVATE_KEY }}
   run: |
     echo "Secrets securely loaded into the workflow environment."
+
+### Benefits
+
+- Prevents exposure of sensitive credentials in the repository.
+- Makes secrets available only during workflow execution.
+- Follows security best practices for CI/CD pipelines.
+- Reduces the risk of accidental credential leakage.
