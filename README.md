@@ -1,103 +1,42 @@
-<<<<<<< HEAD
-# DIGITAL SIGNATUREls - Member 3
+# Secure OTA Firmware Update and Code Signing Infrastructure 
+  ##Project Overview
 
-Signs firmware binaries using RSA-2048 PSS and SHA-256 for secure OTA updates.
+This project ensures secure firmware delivery to IoT devices by using digital signatures. Firmware is signed using a private key and verified using a public key before installation.
 
-## Features
+## Objectives
+- Ensure firmware authenticity.
+- Prevent unauthorized firmware installation.
+- Verify signatures using public-key cryptography.
 
-* RSA-2048 digital signatures
-* RSA-PSS padding
-* SHA-256 hashing
-* Input validation for key and firmware files
-* Automated unit tests using pytest
+## Team Members
+- Member 1 – Firmware Development
+- Member 2 – Key Management
+- Member 3 – Update Server Development
+- Member 4 – Verification & GitHub Management
 
-## Prerequisites
+## Repository Structure
 
-Install the required dependencies:
+signing/      - Firmware signing module
+verification/ - Signature verification module
+tests/        - Testing files
 
-```bash
-pip install -r requirements.txt
-```
+## Technologies
+- Python
+- GitHub
+- Cryptography Libraries
 
-## Requirements --------
+## Week 1 Tasks
+- Create GitHub repository.
+- Set up project structure.
+- Research code signing and signature verification.
+- Prepare project documentation.## Week 1 Progress
 
-Create a `requirements.txt` file with:
+Completed:
+- GitHub repository setup
+- Project structure creation
+- Signing module documentation
+- Verification module documentation
+- Testing documentation
+- Initial repository management
 
-```text
-cryptography==42.0.8
-pytest==7.4.3
-```
-
-## Generate Test Keys
-
-Generate an RSA private key:
-
-```bash
-created using generate_keys.py 
-```
-
-Create a sample firmware file:
-
-```bash
-echo "firmware v1.0 test data" > firmware.bin
-```
-
-## Sign Firmware
-
-Run the signer:
-
-```bash
-python sign_firmware.py --key private_key.pem --firmware firmware.bin 
-```
-
-## Output
-
-After successful signing, the signature file will be created:
-
-```text
-dist/
-└── firmware.sig
-```
-
-## Run Tests
-----------
-Execute all unit tests:
-
-```bash
-pytest test_signer.py -v
-```
-
-Expected output:
-
-```text
-======================== 3 passed ========================
-```
-
-# Test verification
------------------
- # #Run Test
-```
-python verify_firmware.py --public-key public_key.pem --firmware firmware.bin --signature dist/firmware.sig
-```
-=======
-
-# OTA-Security-Project
-
-## Week 2 Progress
-
-### Verification Automation
-- Added automated signature verification workflow.
-- Verification runs after firmware signing.
-- Prepared verification process for deployment testing.
-
-### Current Status
-Work in progress for Week 2 deployment and verification tasks.
-
-## Deployment Workflow
-
-1. Firmware is built.
-2. Firmware is digitally signed.
-3. Signature is automatically verified.
-4. Signed firmware is uploaded to the distribution server.
-5. Release testing is performed.
-
+Status: Week 1 Completed. 
