@@ -23,6 +23,6 @@ jobs:
           
       - name: Test verification
 
-        run: python verify_firmware.py --public-key public.pem --firmware firmware.bin --signature dist/firmware.sig
+        run: python test_signer.py --public-key public.pem --firmware firmware.bin --signature dist/firmware.sig
 
         run: python verify_firmware.py --public-key public.pem --input firmware.bin --signature dist/firmware.sig
