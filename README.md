@@ -47,7 +47,7 @@ echo "firmware v1.0 test data" > firmware.bin
 Run the signer:
 
 ```bash
-python sign_firmware.py --key private.pem --firmware firmware.bin 
+python sign_firmware.py --key private_key.pem --firmware firmware.bin 
 ```
 
 ## Output
@@ -72,7 +72,15 @@ Expected output:
 ```text
 ======================== 3 passed ========================
 ```
+
+# Test verification
+
+ # #Run Test
+```
+python verify_firmware.py --public-key public_key.pem --firmware firmware.bin --signature dist/firmware.sig
+```
 =======
+
 # OTA-Security-Project
 
 ## Week 2 Progress

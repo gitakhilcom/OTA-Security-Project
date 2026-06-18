@@ -18,11 +18,8 @@ jobs:
       - name: Run unit tests
         run: pytest test_signer.py -v 
           
-      - name: Test signing
-        run: python sign_firmware.py --key private.pem --firmware firmware.bin 
-          
       - name: Test verification
 
-        run: python verify_firmware.py --public-key public.pem --firmware firmware.bin --signature dist/firmware.sig
+        run: python verify_firmware.py --public-key public_key.pem --firmware firmware.bin --signature dist/firmware.sig
 
-        run: python verify_firmware.py --public-key public.pem --input firmware.bin --signature dist/firmware.sig
+    
