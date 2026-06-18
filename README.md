@@ -60,7 +60,7 @@ dist/
 ```
 
 ## Run Tests
-
+----------
 Execute all unit tests:
 
 ```bash
@@ -74,7 +74,7 @@ Expected output:
 ```
 
 # Test verification
-
+-----------------
  # #Run Test
 ```
 python verify_firmware.py --public-key public_key.pem --firmware firmware.bin --signature dist/firmware.sig
