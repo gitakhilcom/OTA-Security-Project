@@ -8,15 +8,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-  
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      
+         python-version: '3.11'
+
       - name: Install dependencies
         run: pip install -r requirements.txt
-      
+
       - name: Run unit tests
         run: pytest test_signer.py -v
 
@@ -24,14 +24,9 @@ jobs:
         env:
           PRIVATE_KEY_DATA: ${{ secrets.PRIVATE_KEY }}
         run: |
-          # 1. Save the secret text into a temporary file
           echo "$PRIVATE_KEY_DATA" > private_key.pem
-          
-          # 2. Run your script using the path to that file
           python sign_firmware.py firmware.bin private_key.pem firmware.sig
-          
-          # 3. Securely delete the file immediately after use
           rm -f private_key.pem
-      
+
       - name: Test verification
         run: python verify_firmware.py firmware.bin firmware.sig public_key.pem
