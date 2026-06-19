@@ -12,10 +12,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-         python-version: '3.11'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Generate RSA Key Pair
+        run: python generate_keys.py
 
       - name: Run unit tests
         run: pytest test_signer.py -v
@@ -25,7 +28,7 @@ jobs:
           PRIVATE_KEY_DATA: ${{ secrets.PRIVATE_KEY }}
         run: |
           echo "$PRIVATE_KEY_DATA" > private_key.pem
-          python sign_firmware.py --firmware firmware.bin --key private_key.pem 
+          python sign_firmware.py --firmware firmware.bin --key private_key.pem
           rm -f private_key.pem
 
       - name: Test verification
