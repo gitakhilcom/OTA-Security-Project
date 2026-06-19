@@ -29,4 +29,4 @@ jobs:
           rm -f private_key.pem
 
       - name: Test verification
-        run: python verify_firmware.py firmware.bin firmware.sig public_key.pem
+        run: python verify_firmware.py firmware.bin dist/firmware.sig public_key.pem
