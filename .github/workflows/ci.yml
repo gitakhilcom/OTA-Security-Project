@@ -25,7 +25,7 @@ jobs:
           PRIVATE_KEY_DATA: ${{ secrets.PRIVATE_KEY }}
         run: |
           echo "$PRIVATE_KEY_DATA" > private_key.pem
-          python sign_firmware.py firmware.bin private_key.pem firmware.sig
+          python sign_firmware.py --firmware firmware.bin --key private_key.pem 
           rm -f private_key.pem
 
       - name: Test verification
