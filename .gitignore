@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+public_key.pem
+=======
 __pycache__/
 *.pyc
 dist/
@@ -5,3 +8,4 @@ dist/
 firmware.bin
 *.bin
 *.sig
+>>>>>>> main

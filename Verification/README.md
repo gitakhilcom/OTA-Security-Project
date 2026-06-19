@@ -20,5 +20,4 @@ Verify the firmware signature using the public key.
 4. Accept valid firmware and reject invalid firmware.
 
 ## Expected Result
---------------------
 Valid signatures are accepted and invalid signatures are rejected.
