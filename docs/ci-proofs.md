@@ -15,4 +15,5 @@ Results:
 Evidence:
 See attached screenshots of GitHub Actions logs.
 
-<img width="1882" height="931" alt="Screenshot 2026-06-20 194634" src="https://github.com/user-attachments/assets/3d7e8774-8472-4b16-b707-081a5d0ad0e8" />
+<img width="1877" height="831" alt="Screenshot 2026-06-20 200338" src="https://github.com/user-attachments/assets/fbe869db-1e0f-4bc2-9854-db02feb0c7dc" />
+
