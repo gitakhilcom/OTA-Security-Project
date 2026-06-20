@@ -40,3 +40,4 @@ Completed:
 - Initial repository management
 
 Status: Week 1 Completed. 
+---------------------------
