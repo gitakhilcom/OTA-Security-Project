@@ -50,6 +50,7 @@ project-root/
 * RSA Digital Signatures
 * SHA-256 Hashing
 * OTA Update Concepts
+* GitHub Actions (CI/CD)
 
 ---
 
@@ -120,18 +121,58 @@ project-root/
 
 ---
 
+## Week 2 CI/CD
+
+### CI/CD Automation
+
+The project includes an automated GitHub Actions workflow for firmware signing and verification.
+
+1. CI pipeline triggers automatically when a Git tag matching `v*` is pushed.
+2. The pipeline signs `firmware.bin` and generates `firmware.bin.sig` using `sign_firmware.py`.
+3. The generated signature is verified using `verify_firmware.py`.
+4. The workflow validates firmware integrity before artifact publication.
+5. Signed firmware artifacts are uploaded and stored for deployment review.
+
+### Workflow Steps
+
+1. Checkout repository source code.
+2. Set up Python environment.
+3. Install project dependencies.
+4. Generate firmware signing artifacts.
+5. Sign firmware using RSA private key.
+6. Verify firmware signature using RSA public key.
+7. Upload signed firmware artifacts.
+8. Publish CI/CD execution results.
+
+### Status
+
+✅ Automated firmware signing implemented
+
+✅ Automated signature verification implemented
+
+✅ GitHub Actions CI/CD workflow configured
+
+✅ Signed firmware artifact generation validated
+
+✅ Continuous Integration pipeline operational
+
+---
+
 ## Future Enhancements
 
 * Secure OTA update server deployment.
-* Automated firmware signing pipeline.
+* Automated firmware signing pipeline improvements.
 * Secure key storage and management.
-* GitHub Actions CI/CD integration.
+* Advanced GitHub Actions CI/CD integration.
 * Firmware version control and rollback protection.
 * Device authentication before updates.
+* Cloud-based firmware distribution.
+* Hardware-backed key protection.
 
 ---
 
 ## License
 
 This project is developed for educational and research purposes.
+
 
