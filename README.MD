@@ -156,9 +156,12 @@ The project includes an automated GitHub Actions workflow for firmware signing a
 
 ✅ Continuous Integration pipeline operational
 
-## CI Status
+### CI Status
+
 ![CI Passing](docs/ci-run-day21.png)
+
 Latest: 3/3 tests passing - firmware signing + verification verified
+
 CI Run: https://github.com/gitakhilcom/OTA-Security-Project/actions/runs/27873600795
 
 ---
