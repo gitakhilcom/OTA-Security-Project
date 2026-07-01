@@ -41,3 +41,33 @@ Member 2 – Secrets & Key Management Lead
 * Configured GitHub Secrets securely with the production private key.
 * Formulated and committed comprehensive security implementation documentation.
 * Audited team CI/CD pipelines to ensure safe environment protection rules.
+
+---
+
+## WEEK 3: Firmware Integrity & Hashing
+
+### Role
+Member 2 – Firmware Integrity & Hashing Lead
+
+### Files Created
+* `firmware_hash.py` – SHA-256 hashing module that reads firmware.bin, computes its hash, compares it against the expected hash value, and catches tampering before signature verification runs.
+* `test_firmware_hash.py` – Unit tests to confirm tampered firmware gets detected and rejected.
+* `.github/workflows/test.yml` – GitHub Actions workflow for automated firmware integrity unit testing.
+
+### How to Run
+To verify firmware integrity:
+python firmware_hash.py firmware.bin firmware_hash.txt
+
+To run unit tests:
+python -m unittest test_firmware_hash -v
+
+### Security Notes
+* SHA-256 hash verification runs before signature verification as the first line of defence.
+* Any single byte change in firmware.bin will produce a completely different hash and get rejected immediately.
+* Unit tests simulate real tamper attacks including byte flipping, appending, prepending, and full payload replacement.
+
+### Week 3 Deliverables
+* Successfully implemented SHA-256 firmware integrity verification module.
+* Built tamper detection logic that catches any modification to firmware binary.
+* Authored unit tests confirming tampered firmware is correctly blocked.
+* added a GitHub Actions Workflow to automatically run firmware integrity unit tests.
