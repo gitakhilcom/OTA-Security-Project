@@ -24,3 +24,40 @@ def save_current_version(version, build):
         json.dump(version_data, f, indent=4)
     
     print(f"[INFO] Version {version} (build {build}) saved to device.")
+def parse_version(version_str):
+    """Convert version string like '1.2.3' into a tuple for comparison."""
+    return tuple(int(x) for x in version_str.split("."))
+
+def check_rollback(new_version, new_build):
+    """Check if the incoming firmware is newer than the installed version."""
+    current = get_current_version()
+    current_version = current["version"]
+    current_build = current["build"]
+
+    print(f"[INFO] Current version: {current_version} (build {current_build})")
+    print(f"[INFO] Incoming version: {new_version} (build {new_build})")
+
+    if parse_version(new_version) > parse_version(current_version):
+        print("[SUCCESS] Version check passed. Firmware is newer.")
+        return True
+    elif parse_version(new_version) == parse_version(current_version):
+        if new_build > current_build:
+            print("[SUCCESS] Same version but newer build. Proceeding.")
+            return True
+        else:
+            print("[CRITICAL] Rollback attack detected! Same or older build rejected.")
+            return False
+    else:
+        print("[CRITICAL] Rollback attack detected! Older version rejected.")
+        return False
+
+if __name__ == "__main__":
+    # Simulate incoming firmware version
+    incoming_version = "1.0.1"
+    incoming_build = 2
+
+    if check_rollback(incoming_version, incoming_build):
+        save_current_version(incoming_version, incoming_build)
+        print("[INFO] Firmware version updated successfully.")
+    else:
+        print("[INFO] Installation blocked due to rollback protection.")
