@@ -184,3 +184,41 @@ CI Run: https://github.com/gitakhilcom/OTA-Security-Project/actions/runs/2787360
 This project is developed for educational and research purposes.
 
 
+## Week 3 - Verification Module
+
+### Architecture
+
+Firmware.bin
+      │
+      ▼
+SHA-256 Hash
+      │
+      ▼
+RSA-PSS Signature Verification
+      │
+      ▼
+Valid?
+├── Yes → Firmware Integrity Confirmed
+└── No → Installation Blocked
+      │
+      ▼
+Verification Log Generated
+
+### Week 3 Features
+
+- Firmware signature verification
+- SHA-256 hash validation
+- RSA-PSS digital signature verification
+- Security alert logging
+- Detection of tampered firmware
+- Automated verification tests
+
+### Test Results
+
+✔️ Valid firmware verification passed
+
+✔️ Tampered firmware detection passed
+
+✔️ Invalid signature detection passed
+
+✔️ Installation blocked for modified firmware
