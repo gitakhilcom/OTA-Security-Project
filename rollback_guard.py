@@ -85,11 +85,7 @@ def check_rollback(current_state: dict, incoming_manifest: dict) -> bool:
     return True
 
 """
-rollback_guard.py
 Core anti-rollback logic for the Edge Verification Agent.
-This is the module under test — Member 2 (Edge Device Verification Lead)
-owns the "real" implementation; this copy exists so the test suite
-is self-contained and can run independently.
 """
 
 import json
