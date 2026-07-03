@@ -1,0 +1,38 @@
+name: CI - Sign + Verify Firmware
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+         python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: pytest test_signer.py -v
+
+      - name: Create Keys
+        env:
+          PRIVATE_KEY_DATA: ${{ secrets.PRIVATE_KEY }}
+        run: |
+          echo "$PRIVATE_KEY_DATA" > private_key.pem
+          openssl rsa -pubout -in private_key.pem -out public_key.pem
+
+      - name: Sign Firmware
+        run: |
+           python sign_firmware.py --firmware firmware.bin --key private_key.pem
+
+      - name: Test verification
+        run: |
+           python verify_firmware.py firmware.bin dist/firmware.sig public_key.pem
+
+      - name: Cleanup
+        run: rm -f private_key.pem public_key.pem
