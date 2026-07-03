@@ -1,3 +1,7 @@
+# anti_rollback.py
+# Anti-Rollback Version Control - OTA Security Project
+# Member 1 - Week 4: Version Control & Anti-Rollback Lead
+
 import os
 import json
 from datetime import datetime
@@ -7,7 +11,6 @@ VERSION_FILE = "current_version.json"
 def get_current_version():
     """Load the currently installed firmware version from local storage."""
     if not os.path.exists(VERSION_FILE):
-        # No version installed yet, default to zero
         return {"version": "0.0.0", "build": 0, "timestamp": ""}
     
     with open(VERSION_FILE, "r") as f:
@@ -24,6 +27,7 @@ def save_current_version(version, build):
         json.dump(version_data, f, indent=4)
     
     print(f"[INFO] Version {version} (build {build}) saved to device.")
+
 def parse_version(version_str):
     """Convert version string like '1.2.3' into a tuple for comparison."""
     return tuple(int(x) for x in version_str.split("."))
@@ -52,7 +56,6 @@ def check_rollback(new_version, new_build):
         return False
 
 if __name__ == "__main__":
-    # Simulate incoming firmware version
     incoming_version = "1.0.1"
     incoming_build = 2
 
