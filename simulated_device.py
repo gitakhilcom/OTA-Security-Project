@@ -1,6 +1,5 @@
 import time
 import sys
-import itertools
 
 import download_firmware
 import verify_firmware
@@ -8,51 +7,48 @@ import rollback_guard
 
 
 # -----------------------------
-# Loading Spinner
+# Status Message
 # -----------------------------
-def spinner(message, duration=2):
-    animation = itertools.cycle(["|", "/", "-", "\\"])
-    end_time = time.time() + duration
-
-    while time.time() < end_time:
-        sys.stdout.write(f"\r{message:<45} {next(animation)}")
-        sys.stdout.flush()
-        time.sleep(0.1)
-
-    sys.stdout.write(f"\r{message:<45} [ OK ]\n")
+def status(message, delay=1):
+    print(f"[INFO] {message}...", end="", flush=True)
+    time.sleep(delay)
+    print(" DONE")
 
 
 # -----------------------------
 # Progress Bar
 # -----------------------------
 def progress(title, width=40):
+
     print(f"\n{title}")
 
     for i in range(width + 1):
-        percent = int(i / width * 100)
+        percent = int((i / width) * 100)
         bar = "█" * i + "░" * (width - i)
+
         sys.stdout.write(f"\r[{bar}] {percent:3d}%")
         sys.stdout.flush()
-        time.sleep(0.04)
 
-    print("\n")
+        time.sleep(0.03)
+
+    print()
 
 
-# ==========================================================
-# Start
-# ==========================================================
+# ======================================================
+# START
+# ======================================================
 
-print("\n" + "=" * 60)
-print("             SECURE OTA FIRMWARE UPDATE SYSTEM")
-print("=" * 60)
+print("=" * 65)
+print("               SECURE OTA FIRMWARE UPDATE SYSTEM")
+print("=" * 65)
 
-spinner("[INFO] Booting IoT Device", 2)
-spinner("[INFO] Initializing Security Engine", 2)
-spinner("[INFO] Connecting to Update Server", 2)
+status("Booting IoT Device")
+status("Initializing Security Engine")
+status("Connecting to Update Server")
 
-print("\n" + "-" * 60)
-print("STEP 1 : DOWNLOAD FIRMWARE")
-print("-" * 60)
+print("\n" + "-" * 65)
+print("STEP 1 : DOWNLOADING FIRMWARE")
+print("-" * 65)
 
 progress("Downloading firmware.bin")
 progress("Downloading firmware.sig")
@@ -65,13 +61,13 @@ public_key_file = "public_key.pem"
 
 print("\n✓ Firmware package downloaded successfully.")
 
-print("\n" + "-" * 60)
-print("STEP 2 : AUTHENTICITY VERIFICATION")
-print("-" * 60)
+print("\n" + "-" * 65)
+print("STEP 2 : VERIFYING AUTHENTICITY")
+print("-" * 65)
 
-spinner("Calculating SHA-256 Hash", 2)
-spinner("Loading Public Key", 1)
-spinner("Verifying Digital Signature", 2)
+status("Calculating SHA-256 Hash")
+status("Loading Public Key")
+status("Verifying Digital Signature")
 
 if verify_firmware.verify_signature(
     firmware_file,
@@ -89,48 +85,64 @@ if verify_firmware.verify_signature(
         "build_iteration": 2
     }
 
-    print("\n" + "-" * 60)
+    print("\n" + "-" * 65)
     print("STEP 3 : ROLLBACK PROTECTION")
-    print("-" * 60)
+    print("-" * 65)
 
-    print(f"Current Firmware  : Timestamp={current_state['build_timestamp']}  Version={current_state['build_iteration']}")
-    print(f"Incoming Firmware : Timestamp={incoming_manifest['build_timestamp']}  Version={incoming_manifest['build_iteration']}")
+    print(f"Current Firmware")
+    print(f"  Timestamp : {current_state['build_timestamp']}")
+    print(f"  Version   : {current_state['build_iteration']}")
 
-    spinner("Checking Firmware Version", 2)
+    print()
+
+    print(f"Incoming Firmware")
+    print(f"  Timestamp : {incoming_manifest['build_timestamp']}")
+    print(f"  Version   : {incoming_manifest['build_iteration']}")
+
+    print()
+
+    status("Checking Rollback Protection")
 
     if rollback_guard.check_rollback(current_state, incoming_manifest):
 
-        print("\nRollback Status : PASSED ✓")
+        print("\n✓ Rollback Check Passed")
 
-        print("\n" + "-" * 60)
+        print("\n" + "-" * 65)
         print("STEP 4 : INSTALLING FIRMWARE")
-        print("-" * 60)
+        print("-" * 65)
 
-        progress("Writing Firmware to Flash Memory")
+        progress("Writing Firmware")
         progress("Verifying Installation")
         progress("Updating Boot Configuration")
 
-        spinner("Rebooting Device", 3)
+        status("Rebooting Device", 2)
 
-        print("\n" + "=" * 60)
-        print("              OTA UPDATE COMPLETED")
-        print("=" * 60)
-        print("[SUCCESS] Firmware Installed Successfully")
-        print("[SUCCESS] Secure Boot Verification Passed")
-        print("[SUCCESS] Device Running Latest Firmware")
-        print("[STATUS ] System State : OPERATIONAL")
-        print("=" * 60)
+        print("\n" + "=" * 65)
+        print("                 OTA UPDATE SUCCESSFUL")
+        print("=" * 65)
+        print("Status               : SUCCESS")
+        print("Firmware Signature   : VERIFIED")
+        print("Rollback Protection  : PASSED")
+        print("Installation         : COMPLETED")
+        print("Device State         : OPERATIONAL")
+        print("=" * 65)
 
     else:
 
-        print("\n" + "=" * 60)
-        print("[ERROR] Rollback Attack Detected")
-        print("[ERROR] Firmware Installation Cancelled")
-        print("=" * 60)
+        print("\n" + "=" * 65)
+        print("                 OTA UPDATE FAILED")
+        print("=" * 65)
+        print("Status               : FAILED")
+        print("Reason               : Rollback Attack Detected")
+        print("Installation         : CANCELLED")
+        print("=" * 65)
 
 else:
 
-    print("\n" + "=" * 60)
-    print("[ERROR] Digital Signature Verification Failed")
-    print("[ERROR] Firmware Installation Aborted")
-    print("=" * 60)
+    print("\n" + "=" * 65)
+    print("                 OTA UPDATE FAILED")
+    print("=" * 65)
+    print("Status               : FAILED")
+    print("Reason               : Invalid Digital Signature")
+    print("Installation         : ABORTED")
+    print("=" * 65)
