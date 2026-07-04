@@ -56,9 +56,11 @@ Member 2 – Firmware Integrity & Hashing Lead
 
 ### How to Run
 To verify firmware integrity:
+```bash
 python firmware_hash.py firmware.bin firmware_hash.txt
 
 To run unit tests:
+```bash
 python -m unittest test_firmware_hash -v
 
 ### Security Notes
@@ -71,3 +73,31 @@ python -m unittest test_firmware_hash -v
 * Built tamper detection logic that catches any modification to firmware binary.
 * Authored unit tests confirming tampered firmware is correctly blocked.
 * added a GitHub Actions Workflow to automatically run firmware integrity unit tests.
+
+---
+
+## WEEK 4: Build Metadata & Version Storage
+
+### Role
+Member 2 – Build Metadata & Version Storage Lead
+
+### Files Created
+* `version.json` – Stores the current firmware version, build number, firmware file, and SHA-256 hash.
+* `version_store.py` – Reads, updates, and compares firmware versions to help prevent rollback attacks.
+* `.github/workflows/version_check.yml` – GitHub Actions workflow that automatically runs version checks on every push to the `Member-2` branch.
+
+### How to Run
+To check the current firmware version:
+```bash
+python version_store.py
+
+### Security Notes
+* Rejects firmware versions older than the currently installed version.
+* Prevents rollback attacks by comparing firmware versions.
+* Stores firmware metadata for version tracking and validation.
+
+### Week 4 Deliverables
+* Created firmware version metadata storage.
+* Implemented firmware version management module.
+* Added version comparison for rollback protection.
+* Configured GitHub Actions for automated version checks.
