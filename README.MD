@@ -222,3 +222,22 @@ Verification Log Generated
 ✔️ Invalid signature detection passed
 
 ✔️ Installation blocked for modified firmware
+## Threat Model
+
+The project protects the OTA firmware update process against several security threats.
+
+### Threats Considered
+- Compromised CI/CD Pipeline
+- Private Key Theft
+- Rollback Attacks
+- Signature Forgery
+- Firmware Tampering
+
+### Security Controls
+- RSA Digital Signatures
+- SHA-256 Hashing
+- Public Key Verification
+- Secure Key Storage
+- Automated Verification
+- Verification Logging
+- GitHub Branch Protection
