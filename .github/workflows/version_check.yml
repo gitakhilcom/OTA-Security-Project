@@ -1,0 +1,17 @@
+name: Run Version Check
+
+on:
+  push:
+    branches: [ Member-2 ]
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Run version store
+        run: python version_store.py
