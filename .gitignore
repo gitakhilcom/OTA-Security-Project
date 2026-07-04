@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+public_key.pem
+=======
+__pycache__/
+*.pyc
+dist/
+*.pem
+firmware.bin
+*.bin
+*.sig
+>>>>>>> main
