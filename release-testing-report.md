@@ -36,37 +36,36 @@
 
 ## Known Issues
 
-* None
+ None
 
 ## Ready for Release: YES
 
 
-
-\## Week 2 Final Summary - Day 5
-
-
-
-\### Completed Deliverables
-
-\- Automated verification step implemented
-
-\- Artifact upload configured
-
-\- GitHub documentation updated
-
-\- Release testing report finalized
-
-\- Merge conflict resolved and PR #6 merged
-
-\- Branch synced with main
+# Week 2 Final Summary - Day 5
 
 
 
-\### Signed off by: neflanesrin07-huby
+# Completed Deliverables
+
+ Automated verification step implemented
+
+ Artifact upload configured
+
+ GitHub documentation updated
+
+ Release testing report finalized
+
+ Merge conflict resolved and PR #6 merged
+
+ Branch synced with main
 
 
 
-\### Week 2 Status: COMPLETE ✅
+## Signed off by: neflanesrin07-huby
+
+
+
+## Week 2 Status: COMPLETE ✅
 
 
 
