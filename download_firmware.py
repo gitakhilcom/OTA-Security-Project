@@ -3,6 +3,7 @@ import urllib.request
 import argparse
 
 FIRMWARE_URL = "https://github.com/gitakhilcom/OTA-Security-Project/releases/download/V1.1/firmware.bin"
+SIGNATURE_URL = "https://github.com/gitakhilcom/OTA-Security-Project/releases/download/V1.1/firmware.sig"
 DOWNLOAD_DIR = "downloads"
 
 def download_firmware(url=FIRMWARE_URL, dest_dir=DOWNLOAD_DIR):
