@@ -8,3 +8,4 @@ dist/
 *.bin
 *.sig
 >>>>>>> main
+Verification/current_version.json
