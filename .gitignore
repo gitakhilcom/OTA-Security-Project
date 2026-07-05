@@ -1,11 +1,25 @@
-<<<<<<< HEAD
+ HEAD
+ HEAD
 public_key.pem
-=======
+
 __pycache__/
 *.pyc
 dist/
 *.pem
 *.bin
 *.sig
->>>>>>> main
+ main
 Verification/current_version.json
+
+ HEAD
+public_key.pem
+
+__pycache__/
+*.pyc
+dist/
+*.pem
+firmware.bin
+*.bin
+*.sig
+ main
+ origin/main
