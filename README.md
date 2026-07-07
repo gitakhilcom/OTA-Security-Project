@@ -106,7 +106,7 @@ OTA-Security-Project/
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/OTA-Security-Project.git
+git clone https://github.com/gitakhilcom/OTA-Security-Project.git
 
 cd OTA-Security-Project
 ```
